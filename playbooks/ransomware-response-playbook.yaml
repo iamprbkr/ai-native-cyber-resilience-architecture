@@ -1,0 +1,73 @@
+# Ransomware Response Playbook
+# Specific playbook for ransomware incidents in a mid-size organization.
+# Assumes network segmentation and offline backups exist.
+
+playbook:
+  id: ir-002
+  name: Ransomware Response
+  version: "1.1"
+  parent: ir-001
+
+  trigger:
+    conditions:
+      - event_type: ransomware_encryption
+      - event_type: ransomware_note
+      - type: user_report
+        description: User reports encrypted files with ransom note
+
+  severity: critical
+  sla_minutes: 15
+
+  immediate_containment:
+    - action: network_segment
+      description: Isolate affected VLAN or subnet at switch level
+      automation_possible: true
+    - action: disable_rdp
+      description: Disable RDP across the environment if lateral spread suspected
+      automation_possible: true
+    - action: disable_scheduled_tasks
+      description: Halt non-critical scheduled tasks that may trigger encryption
+      automation_possible: false
+    - action: preserve_evidence
+      description: Take disk images and memory captures before cleanup
+      automation_possible: false
+
+  eradication:
+    - action: identify_initial_vector
+      description: Trace entry point (phishing, RDP brute-force, etc.)
+    - action: remove_payload
+      description: Delete ransomware binary and associated artifacts
+    - action: revoke_certificates
+      description: Rotate all certificates and keys on affected systems
+    - action: verify_no_persistence
+      description: Check for scheduled tasks, services, and registry run keys
+
+  recovery:
+    - action: validate_backups
+      description: Ensure backups are clean and offline backups unaffected
+    - action: clean_restore
+      description: Restore from last known-good backup
+    - action: verify_integrity
+      description: Run integrity checks on restored data
+    - action: phased_rejoin
+      description: Rejoin systems to network in phases, monitoring for re-infection
+
+  communication:
+    - notify_executive: true
+    - notify_legal: true
+    - notify_privacy_officer: true
+    - notify_law_enforcement: optional
+    - external_communication:
+        - channel: email
+          target: affected-customers@example.com
+        - channel: press_statement
+          target: if_public_disclosure_required
+
+  post_incident_review:
+    - task: root_cause_analysis
+    - task: backup_review
+      description: Review backup strategy and recovery time
+    - task: tabletop_exercise
+      description: Schedule a simulated ransomware exercise within 30 days
+    - task: policy_update
+      description: Update acceptable use and access control policies

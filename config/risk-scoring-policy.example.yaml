@@ -1,0 +1,35 @@
+# Risk Scoring Policy
+# Computes a composite risk score (0–100) from three factors:
+#   - Alert severity
+#   - Asset criticality
+#   - Threat context multiplier
+#
+# Final score = base(severity, criticality) * threat_multiplier
+# Scores >= 75: Critical (immediate response)
+# Scores 50–74: High (escalate within 1 hour)
+# Scores 25–49: Medium (investigate within 4 hours)
+# Scores < 25:  Low (triage during normal shift)
+
+severity:
+  info:    10
+  low:     25
+  medium:  50
+  high:    75
+  critical: 95
+
+asset_criticality:
+  low:     0.8
+  medium:  1.0
+  high:    1.3
+
+threat_context_multiplier:
+  none:              1.0
+  known_actor:       1.4
+  active_campaign:   1.6
+  high_likelihood:   1.8
+  confirmed_ioc:     2.0
+
+thresholds:
+  critical:   75
+  high:       50
+  medium:     25

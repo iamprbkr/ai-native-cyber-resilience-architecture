@@ -1,0 +1,79 @@
+# Generic Incident Response Playbook
+# This playbook defines the standard lifecycle for handling a security incident.
+# Adapt triggers, severity levels, and communication channels to your org.
+
+playbook:
+  id: ir-001
+  name: Generic Incident Response
+  version: "1.0"
+
+  trigger:
+    conditions:
+      - type: alert_severity
+        value: high
+      - type: alert_severity
+        value: critical
+      - type: correlation_rule
+        description: Multiple low/medium alerts on same asset within 10 minutes
+
+  classification:
+    severity:
+      low:
+        description: Minimal impact, no data loss
+        sla_minutes: 240
+      medium:
+        description: Possible impact to non-critical systems
+        sla_minutes: 120
+      high:
+        description: Confirmed impact to critical systems
+        sla_minutes: 60
+      critical:
+        description: Active breach or ransomware
+        sla_minutes: 15
+
+  containment:
+    - action: isolate_asset
+      description: Disconnect affected asset from network
+      automation_possible: true
+    - action: disable_account
+      description: Suspend compromised user accounts
+      automation_possible: true
+    - action: block_ioc
+      description: Block indicators (IP, domain, hash) at perimeter
+      automation_possible: true
+
+  eradication:
+    - action: remove_malware
+      description: Scan and clean affected systems
+    - action: revoke_credentials
+      description: Rotate secrets and revoke sessions
+    - action: patch_vulnerability
+      description: Apply relevant security patches
+
+  recovery:
+    - action: restore_from_backup
+      description: Restore clean data from verified backups
+    - action: rejoin_asset
+      description: Reconnect asset after verification
+    - action: monitor
+      description: Increased monitoring for 48 hours post-recovery
+
+  communication:
+    - channel: email
+      target: security-team@example.com
+    - channel: slack
+      target: "#incident-response"
+    - channel: phone
+      target: on-call-engineer
+    - notify_management: true
+    - notify_legal: if_data_breach
+
+  post_incident_review:
+    - task: root_cause_analysis
+      description: Determine root cause and document findings
+    - task: timeline_reconstruction
+      description: Build a complete timeline of events
+    - task: lessons_learned
+      description: Conduct blameless postmortem
+    - task: update_playbook
+      description: Improve this playbook based on findings

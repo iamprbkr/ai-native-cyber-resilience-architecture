@@ -1,0 +1,122 @@
+[
+  {
+    "id": "alert-001",
+    "source": "EDR",
+    "timestamp": "2026-06-09T08:23:00Z",
+    "severity": "critical",
+    "asset_id": "srv-web-app-01",
+    "asset_criticality": "high",
+    "event_type": "ransomware_encryption",
+    "description": "Mass file encryption detected on web application server",
+    "ioc": {
+      "ip": "198.51.100.23",
+      "domain": "evil-malware.example.com",
+      "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "id": "alert-002",
+    "source": "Email Gateway",
+    "timestamp": "2026-06-09T07:45:00Z",
+    "severity": "medium",
+    "asset_id": "user-jdoe",
+    "asset_criticality": "medium",
+    "event_type": "phishing_email",
+    "description": "User reported suspicious email with link to credential harvesting page",
+    "ioc": {
+      "ip": "203.0.113.45",
+      "domain": "phish-login.example.net",
+      "hash": null
+    }
+  },
+  {
+    "id": "alert-003",
+    "source": "SIEM",
+    "timestamp": "2026-06-09T07:12:00Z",
+    "severity": "high",
+    "asset_id": "srv-db-01",
+    "asset_criticality": "high",
+    "event_type": "privilege_escalation",
+    "description": "Unexpected privilege escalation detected on database server via LSASS injection",
+    "ioc": {
+      "ip": "10.0.1.45",
+      "domain": null,
+      "hash": "a7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d80a4b80f8434a"
+    }
+  },
+  {
+    "id": "alert-004",
+    "source": "EDR",
+    "timestamp": "2026-06-09T06:30:00Z",
+    "severity": "low",
+    "asset_id": "ws-finance-12",
+    "asset_criticality": "medium",
+    "event_type": "powershell_execution",
+    "description": "Suspicious PowerShell invocation from non-admin workstation",
+    "ioc": {
+      "ip": null,
+      "domain": null,
+      "hash": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    }
+  },
+  {
+    "id": "alert-005",
+    "source": "Cloud Security Posture",
+    "timestamp": "2026-06-09T05:55:00Z",
+    "severity": "medium",
+    "asset_id": "aws-s3-corp-data",
+    "asset_criticality": "high",
+    "event_type": "data_exfiltration",
+    "description": "Large outbound data transfer from S3 bucket to unknown external IP",
+    "ioc": {
+      "ip": "192.0.2.88",
+      "domain": "data-storage-exfil.example.org",
+      "hash": null
+    }
+  },
+  {
+    "id": "alert-006",
+    "source": "Identity Provider",
+    "timestamp": "2026-06-09T04:20:00Z",
+    "severity": "high",
+    "asset_id": "user-madmin",
+    "asset_criticality": "high",
+    "event_type": "credential_dumping",
+    "description": "Multiple failed login attempts followed by successful login from unusual geo-location",
+    "ioc": {
+      "ip": "185.220.101.34",
+      "domain": null,
+      "hash": null
+    }
+  },
+  {
+    "id": "alert-007",
+    "source": "Network Monitor",
+    "timestamp": "2026-06-09T03:10:00Z",
+    "severity": "info",
+    "asset_id": "srv-app-02",
+    "asset_criticality": "low",
+    "event_type": "suspicious_rdp",
+    "description": "RDP connection attempt from external IP to internal application server (blocked)",
+    "ioc": {
+      "ip": "45.33.32.156",
+      "domain": null,
+      "hash": null
+    }
+  },
+  {
+    "id": "alert-008",
+    "source": "EDR",
+    "timestamp": "2026-06-08T22:00:00Z",
+    "severity": "medium",
+    "asset_id": "srv-dev-05",
+    "asset_criticality": "low",
+    "event_type": "persistence_service",
+    "description": "Unauthorized service installation detected on development server",
+    "ioc": {
+      "ip": null,
+      "domain": null,
+      "hash": "d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2"
+    }
+  }
+]

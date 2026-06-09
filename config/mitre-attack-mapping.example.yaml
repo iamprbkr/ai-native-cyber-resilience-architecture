@@ -1,0 +1,45 @@
+# MITRE ATT&CK Mapping
+# Maps common event types to MITRE ATT&CK tactics and techniques.
+# Use these mappings to enrich alerts with threat context.
+# IDs reference public ATT&CK entries (attack.mitre.org).
+
+events:
+  - event_type: phishing_email
+    tactic: Initial Access
+    technique_id: T1566
+    technique_name: Phishing
+
+  - event_type: powershell_execution
+    tactic: Execution
+    technique_id: T1059
+    technique_name: Command and Scripting Interpreter
+
+  - event_type: suspicious_rdp
+    tactic: Lateral Movement
+    technique_id: T1021
+    technique_name: Remote Services
+
+  - event_type: data_exfiltration
+    tactic: Exfiltration
+    technique_id: T1048
+    technique_name: Exfiltration Over Alternative Protocol
+
+  - event_type: ransomware_encryption
+    tactic: Impact
+    technique_id: T1486
+    technique_name: Data Encrypted for Impact
+
+  - event_type: privilege_escalation
+    tactic: Privilege Escalation
+    technique_id: T1055
+    technique_name: Process Injection
+
+  - event_type: credential_dumping
+    tactic: Credential Access
+    technique_id: T1003
+    technique_name: OS Credential Dumping
+
+  - event_type: persistence_service
+    tactic: Persistence
+    technique_id: T1543
+    technique_name: Create or Modify System Process
