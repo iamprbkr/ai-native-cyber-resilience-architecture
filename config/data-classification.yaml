@@ -1,0 +1,49 @@
+# Data Classification Policy
+# Defines classification levels and handling requirements for platform data
+
+classification_levels:
+  public:
+    description: Information that can be freely shared
+    examples:
+      - Aggregated resilience score
+      - Platform version number
+    handling:
+      encryption: false
+      retention_days: 30
+
+  internal:
+    description: Information accessible within the organization
+    examples:
+      - Alert metadata (severity, event type, source)
+      - Performance metrics (MTTR, FP rate)
+    handling:
+      encryption: true
+      retention_days: 90
+      access_control: rbac_viewer
+
+  confidential:
+    description: Sensitive information with restricted access
+    examples:
+      - Alert descriptions with potential PII
+      - Enriched threat intelligence context
+      - Incident investigation details
+      - Playbook execution logs
+    handling:
+      encryption: true
+      retention_days: 365
+      access_control: rbac_analyst
+      audit_required: true
+
+  restricted:
+    description: Highly sensitive information, strictest controls
+    examples:
+      - Raw alert payloads
+      - Credentials and secrets
+      - Audit logs
+      - RBAC configuration
+    handling:
+      encryption: true
+      retention_days: 730
+      access_control: rbac_admin
+      audit_required: true
+      masking: auto

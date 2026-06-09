@@ -1,0 +1,55 @@
+playbook:
+  id: ir-004
+  name: DDoS Mitigation
+  version: "1.0"
+
+  trigger:
+    conditions:
+      - event_type: ddos_attack
+      - type: traffic_anomaly
+        description: Traffic volume exceeds 5x baseline
+      - type: availability_drop
+        description: Service availability drops below 95%
+
+  severity: high
+  sla_minutes: 15
+
+  containment:
+    - action: enable_rate_limiting
+      description: Apply rate limiting at load balancer or WAF
+      automation_possible: true
+    - action: enable_scrubbing
+      description: Route traffic through DDoS scrubbing center
+      automation_possible: true
+    - action: geo_block
+      description: Block traffic from source regions if applicable
+      automation_possible: true
+    - action: scale_resources
+      description: Auto-scale compute and bandwidth capacity
+      automation_possible: true
+
+  eradication:
+    - action: block_c2_traffic
+      description: Identify and block command-and-control traffic
+    - action: update_waf_rules
+      description: Update WAF rules based on attack patterns
+    - action: coordinate_with_isp
+      description: Coordinate with upstream ISP for null-routing
+
+  recovery:
+    - action: restore_normal_routing
+      description: Gradually restore normal traffic routing
+    - action: verify_service_integrity
+      description: Verify no data corruption occurred
+    - action: capacity_review
+      description: Review capacity for future scaling needs
+
+  communication:
+    - notify_network_team: true
+    - notify_service_owners: true
+    - status_page_update: true
+
+  post_incident_review:
+    - task: analyze_attack_vector
+    - task: update_ddos_response_plan
+    - task: capacity_planning_review

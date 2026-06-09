@@ -1,0 +1,52 @@
+playbook:
+  id: ir-008
+  name: Data Exfiltration Response
+  version: "1.0"
+
+  trigger:
+    conditions:
+      - event_type: data_exfiltration
+      - type: network_anomaly
+        description: Unusual outbound data transfer detected
+      - type: dlp_alert
+        description: DLP policy violation alert
+
+  severity: high
+  sla_minutes: 30
+
+  containment:
+    - action: block_outbound_channel
+      description: Block identified outbound communication channel
+      automation_possible: true
+    - action: quarantine_asset
+      description: Quarantine the asset involved in exfiltration
+      automation_possible: true
+    - action: revoke_api_keys
+      description: Revoke API keys associated with the exfiltration
+      automation_possible: true
+
+  eradication:
+    - action: identify_exfiltrated_data
+      description: Determine type and volume of exfiltrated data
+    - action: identify_method
+      description: Identify exfiltration method (API, email, FTP, etc.)
+    - action: close_channel
+      description: Permanently close the exfiltration channel
+
+  recovery:
+    - action: restore_affected_services
+      description: Restore services after securing the channel
+    - action: update_dlp_rules
+      description: Update DLP policies based on findings
+    - action: enhanced_monitoring
+      description: 30-day enhanced monitoring of data flows
+
+  communication:
+    - notify_data_owner: true
+    - notify_dpo: true
+    - notify_regulator: if_pii_involved
+
+  post_incident_review:
+    - task: quantify_data_loss
+    - task: review_data_classification
+    - task: update_exfiltration_detection

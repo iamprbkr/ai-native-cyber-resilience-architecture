@@ -1,0 +1,62 @@
+playbook:
+  id: ir-007
+  name: Data Breach Response
+  version: "1.0"
+
+  trigger:
+    conditions:
+      - event_type: data_breach
+      - event_type: data_exfiltration
+      - type: legal_notification
+        description: Legal or regulatory notification received
+
+  severity: critical
+  sla_minutes: 15
+
+  containment:
+    - action: isolate_systems
+      description: Isolate affected systems from the network
+      automation_possible: true
+    - action: preserve_forensics
+      description: Capture forensic images and memory dumps
+      automation_possible: false
+    - action: block_exfiltration
+      description: Block external data transfer channels
+      automation_possible: true
+    - action: disable_compromised_accounts
+      description: Suspend all compromised user and service accounts
+      automation_possible: true
+
+  eradication:
+    - action: close_entry_point
+      description: Identify and close the breach entry point
+    - action: remove_malware
+      description: Remove any malware or backdoors
+    - action: rotate_secrets
+      description: Rotate all secrets, certificates, and keys
+    - action: patch_vulnerability
+      description: Apply security patches for exploited vulnerabilities
+
+  recovery:
+    - action: restore_clean_data
+      description: Restore data from pre-breach backups
+    - action: verify_clean
+      description: Verify environment is clean of threats
+    - action: phased_service_restore
+      description: Restore services in phases with monitoring
+
+  communication:
+    - notify_executive: true
+    - notify_legal: true
+    - notify_privacy_officer: true
+    - notify_law_enforcement: mandatory
+    - notify_regulator: mandatory
+    - notify_affected_customers: mandatory
+    - public_disclosure: if_required
+
+  post_incident_review:
+    - task: forensic_investigation
+    - task: root_cause_analysis
+    - task: regulatory_reporting
+    - task: update_security_program
+    - task: customer_notification_tracking

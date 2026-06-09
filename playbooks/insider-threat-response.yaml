@@ -1,0 +1,53 @@
+playbook:
+  id: ir-005
+  name: Insider Threat Response
+  version: "1.0"
+
+  trigger:
+    conditions:
+      - event_type: insider_threat
+      - type: ueba_anomaly
+        description: User behavior analytics anomaly score > 0.8
+      - type: data_access_pattern
+        description: Unusual data access or download volume
+
+  severity: high
+  sla_minutes: 30
+
+  containment:
+    - action: disable_account
+      description: Temporarily suspend user account
+      automation_possible: true
+    - action: revoke_access
+      description: Revoke all privileged access and sessions
+      automation_possible: true
+    - action: preserve_evidence
+      description: Capture system state, logs, and access history
+      automation_possible: false
+
+  eradication:
+    - action: interview_user
+      description: Conduct interview with alleged insider
+    - action: review_auth_logs
+      description: Comprehensive review of authentication and access logs
+    - action: trace_data_movement
+      description: Trace all data access and transfers by the user
+
+  recovery:
+    - action: restore_permissions
+      description: Restore access if determined to be false positive
+    - action: update_policies
+      description: Update access policies based on findings
+    - action: additional_monitoring
+      description: Enhanced monitoring of the user or role
+
+  communication:
+    - notify_hr: true
+    - notify_legal: true
+    - notify_management: true
+    - confidentiality: strict
+
+  post_incident_review:
+    - task: review_access_controls
+    - task: update_ueba_baselines
+    - task: policy_review

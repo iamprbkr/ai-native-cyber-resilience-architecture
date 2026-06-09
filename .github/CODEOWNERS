@@ -1,0 +1,13 @@
+# Default owner for all files
+* @iamprbkr
+
+# Security-sensitive areas
+src/security/ @iamprbkr
+config/ @iamprbkr
+SECURITY.md @iamprbkr
+
+# GRC documentation
+grc/ @iamprbkr
+
+# CI/CD configuration
+.github/ @iamprbkr

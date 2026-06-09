@@ -1,0 +1,117 @@
+# Risk Register
+# AI-Native Cyber Resilience Platform
+# Assessment date: 2026-06-09
+# Methodology: ISO 31000 / NIST SP 800-30
+
+risk_register:
+  - id: RISK-001
+    category: Technical
+    description: Ransomware encryption of critical production systems
+    inherent_likelihood: 4
+    inherent_impact: 5
+    inherent_score: 20  # 4 x 5 = Critical
+    controls:
+      - Automated ransomware playbook (ir-002)
+      - Offline immutable backups
+      - Network segmentation
+      - EDR with behavioral detection
+    residual_likelihood: 2
+    residual_impact: 4
+    residual_score: 8  # High
+    status: monitored
+
+  - id: RISK-002
+    category: Technical
+    description: Data exfiltration via compromised cloud credentials
+    inherent_likelihood: 4
+    inherent_impact: 4
+    inherent_score: 16  # Critical
+    controls:
+      - Zero Trust access policies
+      - Cloud security posture monitoring
+      - Data loss prevention controls
+      - Multi-factor authentication
+    residual_likelihood: 2
+    residual_impact: 3
+    residual_score: 6  # Medium
+    status: monitored
+
+  - id: RISK-003
+    category: Operational
+    description: Insider threat - malicious or negligent employee
+    inherent_likelihood: 3
+    inherent_impact: 4
+    inherent_score: 12  # High
+    controls:
+      - User behavior analytics (UEBA)
+      - Principle of least privilege
+      - Audit logging and monitoring
+      - Insider threat playbook (ir-005)
+    residual_likelihood: 2
+    residual_impact: 3
+    residual_score: 6  # Medium
+    status: monitored
+
+  - id: RISK-004
+    category: Technical
+    description: Supply chain compromise via third-party software
+    inherent_likelihood: 3
+    inherent_impact: 5
+    inherent_score: 15  # Critical
+    controls:
+      - SBOM verification
+      - Vendor risk assessments
+      - Supply chain playbook (ir-006)
+    residual_likelihood: 2
+    residual_impact: 4
+    residual_score: 8  # High
+    status: action_planned
+
+  - id: RISK-005
+    category: Compliance
+    description: Non-compliance with regulatory data protection requirements
+    inherent_likelihood: 3
+    inherent_impact: 4
+    inherent_score: 12  # High
+    controls:
+      - Automated compliance mapping
+      - Data classification policy
+      - Retention and deletion automation
+    residual_likelihood: 1
+    residual_impact: 3
+    residual_score: 3  # Low
+    status: monitored
+
+  - id: RISK-006
+    category: Technical
+    description: AI/ML model poisoning or adversarial attack
+    inherent_likelihood: 2
+    inherent_impact: 4
+    inherent_score: 8  # High
+    controls:
+      - Input validation and sanitization
+      - Model versioning and rollback
+      - Human-in-the-loop for critical decisions
+    residual_likelihood: 1
+    residual_impact: 3
+    residual_score: 3  # Low
+    status: monitored
+
+scoring_matrix:
+  impact:
+    1: negligible
+    2: minor
+    3: moderate
+    4: major
+    5: catastrophic
+  likelihood:
+    1: rare
+    2: unlikely
+    3: possible
+    4: likely
+    5: almost_certain
+  risk_levels:
+    1-4: low
+    5-9: medium
+    10-14: high
+    15-25: critical

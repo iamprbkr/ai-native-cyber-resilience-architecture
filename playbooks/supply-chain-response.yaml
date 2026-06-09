@@ -1,0 +1,55 @@
+playbook:
+  id: ir-006
+  name: Supply Chain Compromise Response
+  version: "1.0"
+
+  trigger:
+    conditions:
+      - event_type: supply_chain
+      - type: vendor_advisory
+        description: Software vendor discloses compromise
+      - type: sbom_anomaly
+        description: SBOM mismatch or unexpected dependency change
+      - type: cve_published
+        description: Critical CVE in third-party component
+
+  severity: high
+  sla_minutes: 30
+
+  containment:
+    - action: identify_affected_assets
+      description: Inventory all systems running the compromised component
+      automation_possible: true
+    - action: disable_affected_service
+      description: Temporarily disable service if critical vulnerability
+      automation_possible: false
+    - action: block_c2_iocs
+      description: Block known IOCs from vendor advisory
+      automation_possible: true
+
+  eradication:
+    - action: patch_or_update
+      description: Apply vendor-released patch or update
+    - action: remove_compromised
+      description: Uninstall or quarantine compromised component
+    - action: verify_integrity
+      description: Verify integrity of all systems post-remediation
+
+  recovery:
+    - action: restore_service
+      description: Restore service with verified clean version
+    - action: monitor
+      description: Enhanced monitoring for 14 days post-recovery
+    - action: vendor_review
+      description: Initiate vendor security review
+
+  communication:
+    - notify_vendor: true
+    - notify_supply_chain_team: true
+    - notify_affected_customers: if_data_compromise
+    - notify_regulator: if_required
+
+  post_incident_review:
+    - task: conduct_vendor_risk_assessment
+    - task: update_sbom_process
+    - task: review_supply_chain_policies

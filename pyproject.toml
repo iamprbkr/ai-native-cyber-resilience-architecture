@@ -1,0 +1,127 @@
+[build-system]
+requires = ["setuptools>=69.0", "wheel"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "ai-native-cyber-resilience"
+version = "1.0.0"
+description = "AI-native cyber resilience platform and autonomous SOC reference blueprint"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+
+authors = [
+  { name = "iamprbkr" },
+]
+
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Information Technology",
+  "Intended Audience :: System Administrators",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Security",
+  "Topic :: Security :: Threat Intelligence",
+  "Topic :: System :: Monitoring",
+]
+
+keywords = [
+  "cyber-resilience",
+  "security-automation",
+  "soc",
+  "ai-security",
+  "incident-response",
+  "threat-intelligence",
+  "zero-trust",
+  "grc",
+]
+
+dependencies = [
+  "pydantic>=2.7",
+  "pydantic-settings>=2.2",
+  "pyyaml>=6.0",
+  "python-dateutil>=2.9",
+  "httpx>=0.27",
+  "structlog>=24.1",
+  "cryptography>=42.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pre-commit>=3.7",
+  "ruff>=0.5",
+  "mypy>=1.10",
+  "bandit>=1.7",
+]
+test = [
+  "pytest>=8.2",
+  "pytest-cov>=5.0",
+  "pytest-asyncio>=0.23",
+  "pytest-mock>=3.14",
+  "hypothesis>=6.103",
+]
+ai = [
+  "scikit-learn>=1.5",
+  "openai>=1.30",
+]
+docs = [
+  "mkdocs>=1.6",
+  "mkdocs-material>=9.5",
+]
+all = [
+  "ai-native-cyber-resilience[dev,test,ai,docs]",
+]
+
+[tool.setuptools.packages.find]
+include = ["src*"]
+
+[tool.setuptools.package-data]
+"*" = ["*.yaml", "*.yml", "*.json", "*.j2"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = [
+  "E", "W", "F", "I", "N", "D", "UP", "YTT",
+  "ANN", "ASYNC", "BLE", "COM", "C4", "DTZ",
+  "T10", "ISC", "ICN", "G", "INP", "PIE",
+  "PT", "PTH", "RET", "RSE", "RUF", "SIM",
+  "SLF", "TCH", "TID", "TRY", "FLY",
+]
+ignore = ["D100", "D101", "D102", "D103", "D104", "D105", "D106", "D107", "ANN101", "ANN102"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["D", "ANN", "TRY", "RSE"]
+"src/**/__init__.py" = ["D", "F401"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.mypy]
+strict = true
+python_version = "3.11"
+warn_unused_configs = true
+disallow_any_unimported = false
+ignore_missing_imports = true
+exclude = ["tests/", "examples/"]
+
+[tool.bandit]
+exclude_dirs = ["tests", "examples"]
+skips = ["B101", B301", "B303", "B311", "B403", "B404", "B603", "B607"]
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-v --tb=short --strict-markers"
+markers = [
+  "unit: Unit tests (fast, no external dependencies)",
+  "integration: Integration tests (may require network)",
+  "security: Security-focused tests (SAST patterns)",
+  "slow: Tests that take longer than 5 seconds",
+]
+filterwarnings = ["error"]

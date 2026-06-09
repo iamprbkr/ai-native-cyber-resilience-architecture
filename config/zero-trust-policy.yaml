@@ -1,0 +1,42 @@
+# Zero Trust Policy Configuration
+# Based on NIST SP 800-207
+
+zero_trust:
+  enabled: true
+
+  policy_enforcement_points:
+    - name: ingestion_gate
+      type: api
+      controls:
+        - mTLS required
+        - API key validation
+        - Rate limiting: 1000 req/min
+        - Schema validation
+    - name: scoring_gate
+      type: service
+      controls:
+        - Risk score threshold: 75 for auto-approval
+        - Requires authentication for all calls
+    - name: response_gate
+      type: action
+      controls:
+        - Manual approval for critical/high
+        - Automated actions limited to pre-approved list
+    - name: reporting_gate
+      type: data
+      controls:
+        - RBAC enforcement per report type
+        - Data masking for PII
+
+  session_policies:
+    max_session_minutes: 15
+    reauth_on_privilege_escalation: true
+    max_concurrent_sessions: 3
+
+  trust_scoring:
+    enabled: true
+    identity_weight: 0.4
+    behavior_weight: 0.3
+    device_weight: 0.2
+    location_weight: 0.1
+    min_trust_score: 0.5

@@ -1,0 +1,5 @@
+FROM ai-native-cyber-resilience:base
+
+RUN pip install --no-cache-dir scikit-learn>=1.5 openai>=1.30
+
+CMD ["python", "-c", "from src.ai.triage_agent import TriageAgent; TriageAgent()"]

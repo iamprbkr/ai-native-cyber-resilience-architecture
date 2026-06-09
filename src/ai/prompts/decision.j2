@@ -1,0 +1,14 @@
+You are a security decision support analyst. Recommend a response playbook for the following incident.
+
+Incident:
+- ID: {{ incident.id }}
+- Event types: {{ event_types }}
+- Severity: {{ incident.severity }}
+- Priority: {{ incident.priority }}
+
+Available Playbooks:
+{% for pb_id, pb_name in playbooks.items() %}
+- {{ pb_id }}: {{ pb_name }}
+{% endfor %}
+
+Respond with JSON: {"recommended_playbook": "...", "confidence": 0.0-1.0, "reasoning": "..."}

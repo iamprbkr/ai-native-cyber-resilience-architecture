@@ -1,0 +1,33 @@
+# MITRE D3FEND Mapping
+# Maps defensive techniques to ATT&CK threats for countermeasure traceability
+
+d3fend_mapping:
+  - attack_technique: T1566  # Phishing
+    d3fend_technique: D3-EMailHeaderAnalysis
+    d3fend_name: Email Header Analysis
+    control: Email gateway scanning
+
+  - attack_technique: T1059  # Command/Shell
+    d3fend_technique: D3-ProcessExecution
+    d3fend_name: Process Execution Monitoring
+    control: EDR process tree analysis
+
+  - attack_technique: T1021  # Remote Services
+    d3fend_technique: D3-NetworkTrafficAnalysis
+    d3fend_name: Network Traffic Analysis
+    control: Network monitoring
+
+  - attack_technique: T1048  # Exfiltration
+    d3fend_technique: D3-OutboundTrafficAnalysis
+    d3fend_name: Outbound Traffic Analysis
+    control: DLP and cloud monitoring
+
+  - attack_technique: T1486  # Encrypt Data
+    d3fend_technique: D3-FileAccessPatternAnalysis
+    d3fend_name: File Access Pattern Analysis
+    control: EDR behavioral detection
+
+  - attack_technique: T1003  # Credential Dumping
+    d3fend_technique: D3-ProcessAnalysis
+    d3fend_name: Process Analysis
+    control: LSASS access monitoring

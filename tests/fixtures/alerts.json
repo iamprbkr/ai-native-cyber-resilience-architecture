@@ -1,0 +1,35 @@
+[
+  {
+    "id": "test-alert-001",
+    "source": "EDR",
+    "timestamp": "2026-06-09T08:23:00Z",
+    "severity": "critical",
+    "asset_id": "srv-web-app-01",
+    "asset_criticality": "high",
+    "event_type": "ransomware_encryption",
+    "description": "Mass file encryption detected on web application server",
+    "ioc": {"ip": "198.51.100.23", "domain": "evil.example.com", "hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}
+  },
+  {
+    "id": "test-alert-002",
+    "source": "SIEM",
+    "timestamp": "2026-06-09T07:12:00Z",
+    "severity": "high",
+    "asset_id": "srv-db-01",
+    "asset_criticality": "high",
+    "event_type": "privilege_escalation",
+    "description": "Privilege escalation on database server",
+    "ioc": {"ip": "10.0.1.45", "domain": null, "hash": null}
+  },
+  {
+    "id": "test-alert-003",
+    "source": "Email Gateway",
+    "timestamp": "2026-06-09T07:45:00Z",
+    "severity": "low",
+    "asset_id": "user-jdoe",
+    "asset_criticality": "medium",
+    "event_type": "phishing_email",
+    "description": "Suspicious email reported",
+    "ioc": {"ip": null, "domain": "phish.example.net", "hash": null}
+  }
+]

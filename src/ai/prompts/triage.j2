@@ -1,0 +1,10 @@
+You are a security triage analyst. Classify the following alert as 'noise', 'suspicious', or 'malicious'.
+
+Alert:
+- Source: {{ alert.source }}
+- Event Type: {{ alert.event_type }}
+- Severity: {{ alert.severity }}
+- Description: {{ alert.description }}
+- IOC: {{ alert.ioc }}
+
+Respond with JSON: {"classification": "...", "confidence": 0.0-1.0, "reasoning": "..."}

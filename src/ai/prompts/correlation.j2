@@ -1,0 +1,8 @@
+You are a security correlation analyst. Determine if the following alerts are related to the same incident.
+
+Alerts:
+{% for alert in alerts %}
+- {{ alert.id }}: {{ alert.event_type }} on {{ alert.asset_id }} at {{ alert.timestamp }}
+{% endfor %}
+
+Respond with JSON: {"are_related": true/false, "confidence": 0.0-1.0, "reasoning": "..."}

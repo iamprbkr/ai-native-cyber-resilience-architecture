@@ -1,0 +1,56 @@
+playbook:
+  id: ir-003
+  name: Phishing Response
+  version: "1.0"
+
+  trigger:
+    conditions:
+      - event_type: phishing_email
+      - event_type: credential_dumping
+      - type: user_report
+        description: User reports suspicious email
+
+  classification:
+    severity: medium
+    sla_minutes: 60
+
+  containment:
+    - action: quarantine_email
+      description: Remove email from all recipients' inboxes
+      automation_possible: true
+    - action: block_sender
+      description: Block sender domain at email gateway
+      automation_possible: true
+    - action: disable_links
+      description: URL sinkhole or block phishing links
+      automation_possible: true
+    - action: reset_password
+      description: Force password reset for affected users
+      automation_possible: true
+
+  eradication:
+    - action: scan_endpoints
+      description: Scan affected user endpoints for malware
+    - action: review_email_rules
+      description: Check for malicious auto-forwarding rules created
+    - action: revoke_sessions
+      description: Revoke active sessions for compromised accounts
+
+  recovery:
+    - action: enable_mfa
+      description: Enforce MFA for affected accounts
+    - action: user_retraining
+      description: Assign security awareness training module
+    - action: enhanced_monitoring
+      description: 7-day enhanced monitoring of affected users
+
+  communication:
+    - channel: email
+      target: affected-users@example.com
+    - notify_security: true
+    - notify_management: if_credentials_compromised
+
+  post_incident_review:
+    - task: analyze_phishing_template
+    - task: update_email_filters
+    - task: update_playbook

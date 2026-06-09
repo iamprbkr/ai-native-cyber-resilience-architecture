@@ -1,0 +1,50 @@
+# Playbook Registry Index
+
+playbooks:
+  - id: ir-001
+    name: Generic Incident Response
+    file: incident-response.yaml
+    severity: [low, medium, high, critical]
+    description: Standard incident response lifecycle for general security events
+
+  - id: ir-002
+    name: Ransomware Response
+    file: ransomware-response.yaml
+    severity: [critical]
+    description: Specialized response for ransomware encryption events
+
+  - id: ir-003
+    name: Phishing Response
+    file: phishing-response.yaml
+    severity: [medium, high]
+    description: Triage and response for phishing and credential harvesting
+
+  - id: ir-004
+    name: DDoS Mitigation
+    file: ddos-response.yaml
+    severity: [high, critical]
+    description: Network and application layer DDoS attack response
+
+  - id: ir-005
+    name: Insider Threat Response
+    file: insider-threat-response.yaml
+    severity: [medium, high, critical]
+    description: Response for malicious or negligent insider activity
+
+  - id: ir-006
+    name: Supply Chain Compromise
+    file: supply-chain-response.yaml
+    severity: [high, critical]
+    description: Response for third-party software supply chain attacks
+
+  - id: ir-007
+    name: Data Breach Response
+    file: data-breach-response.yaml
+    severity: [critical]
+    description: Full data breach lifecycle including notification and regulatory compliance
+
+  - id: ir-008
+    name: Data Exfiltration Response
+    file: data-exfiltration-response.yaml
+    severity: [high, critical]
+    description: Response to unauthorized data transfer from the environment

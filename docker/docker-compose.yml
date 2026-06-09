@@ -1,0 +1,93 @@
+version: "3.9"
+
+services:
+  message-bus:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  ingestion:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.ingestion
+    depends_on:
+      message-bus:
+        condition: service_healthy
+    environment:
+      - RESILIENCE_MESSAGE_BUS_HOST=message-bus
+      - RESILIENCE_LOG_LEVEL=INFO
+    volumes:
+      - ../config:/app/config
+      - ../examples:/app/examples
+
+  enrichment:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.base
+    depends_on:
+      message-bus:
+        condition: service_healthy
+    environment:
+      - RESILIENCE_MESSAGE_BUS_HOST=message-bus
+      - RESILIENCE_LOG_LEVEL=INFO
+    command: python -c "from src.enrichment.service import EnrichmentService; EnrichmentService()"
+    volumes:
+      - ../config:/app/config
+
+  scoring:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.scoring
+    depends_on:
+      message-bus:
+        condition: service_healthy
+    environment:
+      - RESILIENCE_MESSAGE_BUS_HOST=message-bus
+      - RESILIENCE_LOG_LEVEL=INFO
+    volumes:
+      - ../config:/app/config
+
+  response:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.response
+    depends_on:
+      message-bus:
+        condition: service_healthy
+    environment:
+      - RESILIENCE_MESSAGE_BUS_HOST=message-bus
+      - RESILIENCE_LOG_LEVEL=INFO
+    volumes:
+      - ../playbooks:/app/playbooks
+
+  ai:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.ai
+    depends_on:
+      message-bus:
+        condition: service_healthy
+    environment:
+      - RESILIENCE_MESSAGE_BUS_HOST=message-bus
+      - RESILIENCE_LOG_LEVEL=INFO
+      - RESILIENCE_AI_PROVIDER=openai
+      - RESILIENCE_AI_MODEL=gpt-4o-mini
+    volumes:
+      - ../config:/app/config
+
+  metrics:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.base
+    depends_on:
+      message-bus:
+        condition: service_healthy
+    environment:
+      - RESILIENCE_MESSAGE_BUS_HOST=message-bus
+      - RESILIENCE_LOG_LEVEL=INFO
+    command: python -c "from src.reporting.metrics import MetricsCalculator; MetricsCalculator()"

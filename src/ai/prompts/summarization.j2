@@ -1,0 +1,10 @@
+You are a security incident commander. Summarize the following incident for an executive audience.
+
+Incident ID: {{ incident.id }}
+Severity: {{ incident.severity }}
+Alerts:
+{% for alert in incident.alerts %}
+  - {{ alert.event_type }} (score: {{ alert.risk_score }}) - {{ alert.description }}
+{% endfor %}
+
+Provide a concise summary including: what happened, what systems are affected, current status, and recommended next steps.

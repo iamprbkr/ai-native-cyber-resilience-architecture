@@ -1,0 +1,3 @@
+FROM ai-native-cyber-resilience:base
+
+CMD ["python", "-c", "from src.scoring.engine import RiskScoringEngine; RiskScoringEngine()"]
