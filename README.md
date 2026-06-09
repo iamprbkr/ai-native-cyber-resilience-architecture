@@ -5,6 +5,7 @@
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](CONTRIBUTING.md)
+[![Steward](https://img.shields.io/badge/steward-NeevNaav-blueviolet)](https://github.com/NeevNaav)
 [![Code style: ruff](https://img.shields.io/badge/code%20style-ruff-000)](https://docs.astral.sh/ruff/)
 [![Security: bandit](https://img.shields.io/badge/security-bandit-yellow)](https://github.com/PyCQA/bandit)
 
@@ -177,12 +178,17 @@ make security    # Bandit SAST scan
 - [ ] MITRE Caldera simulation integration
 - [ ] SBOM generation in CI
 
+## Governance
+
+This project is stewarded by **NeevNaav**. See [GOVERNANCE.md](GOVERNANCE.md) for roles, decision-making, and the contribution process. All contributors must sign the [DCO](DCO.md) (`git commit -s`).
+
 ## License
 
 MIT — see [LICENSE](LICENSE). Free to use, modify, and distribute.
 
 ## Author
 
-**iamprbkr** — Global Cybersecurity & Resilience Leader, vCISO/DPO, Full-Stack Security Architect, PhD researcher
+**iamprbkr** — Global Cybersecurity & Resilience Leader, vCISO/DPO, Full-Stack Security Architect, PhD researcher  
+**Steward:** [NeevNaav](https://github.com/NeevNaav)
 
 [GitHub](https://github.com/iamprbkr) | [LinkedIn](https://linkedin.com/in/iamprbkr)
